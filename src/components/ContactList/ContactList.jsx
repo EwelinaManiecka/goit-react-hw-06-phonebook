@@ -8,13 +8,14 @@ import { getContacts, getStatusFilter } from 'redux/selectors';
 
 const ContactList = () => {
   const contacts = useSelector(getContacts);
-  const filter = useSelector(getStatusFilter);
-
-  // const filteredContacts = contacts.filter(contact =>
-  //   contact.name.toLowerCase().includes(filter)
-  // );
-
+  const statusFilter = useSelector(getStatusFilter);
   const dispatch = useDispatch();
+
+  const filteredContacts = contacts.filter(contact => {
+    console.log(contact.name);
+    console.log(contact.name.includes(statusFilter.toLowerCase()));
+    contact.name.toLowerCase().includes(statusFilter.toLowerCase());
+  });
 
   const deleteItemContact = id => {
     return dispatch(deleteContact(id));
@@ -22,9 +23,9 @@ const ContactList = () => {
 
   return (
     <>
-      {filter.length > 0 ? (
+      {filteredContacts.length > 0 ? (
         <ul className={css.list}>
-          {filter.map(contact => {
+          {filteredContacts.map(contact => {
             return (
               <li className={css.item} key={contact.id}>
                 <p className={css.text}>
@@ -49,7 +50,7 @@ const ContactList = () => {
 };
 
 ContactList.prototype = {
-  filter: PropTypes.arrayOf(
+  statusFilter: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
