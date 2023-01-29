@@ -1,0 +1,12 @@
+.title {
+  margin: 0;
+  padding: 0;
+  margin-bottom: 10px;
+}
+
+.input {
+  margin-bottom: 10px;
+  width: 200px;
+  height: 30px;
+  border-radius: 5px;
+}

@@ -1,0 +1,34 @@
+.container {
+  margin: 0;
+  padding: 10px;
+  border: 1px solid black;
+}
+
+.title {
+  padding: 0;
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.input {
+  margin-bottom: 10px;
+  border-radius: 5px;
+  width: 200px;
+  height: 30px;
+}
+
+.btnSubmit {
+  width: 100px;
+  height: 30px;
+  display: block;
+  box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.55);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 250ms ease-in-out;
+}
+
+.btnSubmit:hover,
+.btnSubmit:focus {
+  background-color: antiquewhite;
+}
