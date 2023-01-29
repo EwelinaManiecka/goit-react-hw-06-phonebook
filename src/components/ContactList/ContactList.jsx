@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteContact } from 'redux/actions';
+import { deleteContact } from 'redux/contactsSlice';
 import PropTypes from 'prop-types';
 import { Notification } from 'components/Notification/Notification';
 import css from './ContactList.module.css';
@@ -12,9 +12,7 @@ const ContactList = () => {
   const dispatch = useDispatch();
 
   const filteredContacts = contacts.filter(contact => {
-    console.log(contact.name);
-    console.log(contact.name.includes(statusFilter.toLowerCase()));
-    contact.name.toLowerCase().includes(statusFilter.toLowerCase());
+    return contact.name.toLowerCase().includes(statusFilter.toLowerCase());
   });
 
   const deleteItemContact = id => {

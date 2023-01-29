@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import { getStatusFilter } from 'redux/selectors';
+import { useDispatch } from 'react-redux';
 import { setStatusFilter } from 'redux/filterSlice';
 
 import css from './Filter.module.css';
 
 const Filter = () => {
   const dispatch = useDispatch();
-  const filter = useSelector(getStatusFilter);
 
-  const handleFilter = filter => dispatch(setStatusFilter(filter));
+  const handleFilter = event => {
+    dispatch(setStatusFilter(event.target.value));
+  };
 
   return (
     <>

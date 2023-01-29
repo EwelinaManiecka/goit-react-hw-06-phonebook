@@ -1,6 +1,8 @@
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { addContact } from 'redux/contactsSlice';
+import { useEffect } from 'react';
+import { useRef } from 'react';
 
 import css from './ContactForm.module.css';
 import { nanoid } from '@reduxjs/toolkit';
@@ -8,6 +10,15 @@ import { nanoid } from '@reduxjs/toolkit';
 const ContactForm = () => {
   const contacts = useSelector(state => state.contacts);
   const dispatch = useDispatch();
+
+  const isMounted = useRef(false);
+  useEffect(() => {
+    if (isMounted.current) {
+      localStorage.setItem('Contacts', JSON.stringify(contacts));
+    } else {
+      isMounted.current = true;
+    }
+  }, [contacts]);
 
   const formSumbit = event => {
     event.preventDefault();
@@ -33,15 +44,8 @@ const ContactForm = () => {
       alert(`${number} is already in contact with ${filterNumber}`);
       return;
     }
-    console.log(newContact);
     dispatch(addContact(newContact));
     form.reset();
-    // addContacts({
-    //   id: shortid.generate(),
-    //   name: name,
-    //   number: number,
-    // });
-    // event.currentTarget.reset();
   };
 
   return (
@@ -55,7 +59,6 @@ const ContactForm = () => {
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
-          // onChange={formNameChange}
         ></input>
         <p className={css.title}>Number</p>
         <input
@@ -65,7 +68,6 @@ const ContactForm = () => {
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
-          // onChange={formNumberChange}
         ></input>
         <button className={css.btnSubmit} type="submit">
           Add contact
