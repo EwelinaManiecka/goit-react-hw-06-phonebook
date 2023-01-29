@@ -6,7 +6,7 @@ import css from './ContactForm.module.css';
 import { nanoid } from '@reduxjs/toolkit';
 
 const ContactForm = () => {
-  // const contacts = useSelector(state => state.contacts);
+  const contacts = useSelector(state => state.contacts);
   const dispatch = useDispatch();
 
   const formSumbit = event => {
@@ -15,26 +15,26 @@ const ContactForm = () => {
     const name = form.name.value;
     const number = form.number.value;
 
-    // const newContact = {
-    //   id: nanoid(),
-    //   name,
-    //   number,
-    // };
+    const newContact = {
+      id: nanoid(),
+      name,
+      number,
+    };
 
-    // if (contacts.some(contact => contact.name === name)) {
-    //   alert(`${name} is already in contacts`);
-    //   return;
-    // }
+    if (contacts.some(contact => contact.name === name)) {
+      alert(`${name} is already in contacts`);
+      return;
+    }
 
-    // if (contacts.some(contact => contact.number === number)) {
-    //   const filterNumber = contacts.filter(
-    //     contact => contact.number === number
-    //   )[0].name;
-    //   alert(`${number} is already in contact with ${filterNumber}`);
-    //   return;
-    // }
-
-    dispatch(addContact(form.elements.text.value));
+    if (contacts.some(contact => contact.number === number)) {
+      const filterNumber = contacts.filter(
+        contact => contact.number === number
+      )[0].name;
+      alert(`${number} is already in contact with ${filterNumber}`);
+      return;
+    }
+    console.log(newContact);
+    dispatch(addContact(newContact));
     form.reset();
     // addContacts({
     //   id: shortid.generate(),
