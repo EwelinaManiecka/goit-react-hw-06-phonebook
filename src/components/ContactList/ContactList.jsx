@@ -22,7 +22,7 @@ const ContactList = () => {
 
   return (
     <>
-      {filter.lenght > 0 ? (
+      {filter.length > 0 ? (
         <ul className={css.list}>
           {filter.map(contact => {
             return (

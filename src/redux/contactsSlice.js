@@ -13,8 +13,8 @@ const contactSlice = createSlice({
   initialState: contactsInitialState,
   reducers: {
     addContact: {
-      reducer(state, action) {
-        state.push(action.payload);
+      reducer(state, { payload }) {
+        state.push(payload);
       },
       prepare(name, number) {
         return {
