@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const filtersInitialState = {
+const initialState = {
   status: '',
 };
 
 const filterSlice = createSlice({
   name: 'filter',
-  initialState: filtersInitialState,
+  initialState: initialState,
   reducers: {
     setStatusFilter(state, action) {
       state.status = action.payload;
