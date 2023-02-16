@@ -12,7 +12,7 @@ if (localStorage.getItem('Contacts')) {
   const savedContacts = JSON.parse(localStorage.getItem('Contacts'));
   initialState = [...savedContacts];
 }
-const contactSlice = createSlice({
+export const contactSlice = createSlice({
   name: 'contacts',
   initialState: initialState,
   reducers: {

@@ -4,9 +4,10 @@ import { deleteContact } from 'redux/contactsSlice';
 import PropTypes from 'prop-types';
 import { Notification } from 'components/Notification/Notification';
 import css from './ContactList.module.css';
+import { filtersReducer } from 'redux/filterSlice';
 import { getContacts, getStatusFilter } from 'redux/selectors';
 
-const ContactList = () => {
+const ContactList = ({ filter, onDeleteContact }) => {
   const contacts = useSelector(getContacts);
   const statusFilter = useSelector(getStatusFilter);
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ const ContactList = () => {
     <>
       {filteredContacts.length > 0 ? (
         <ul className={css.list}>
-          {filteredContacts.map(contact => {
+          {filter.map(contact => {
             return (
               <li className={css.item} key={contact.id}>
                 <p className={css.text}>
@@ -32,7 +33,7 @@ const ContactList = () => {
                 <button
                   className={css.btnDelete}
                   type="button"
-                  onClick={() => deleteItemContact(contact.id)}
+                  onClick={() => onDeleteContact(contact.id)}
                 >
                   Delete
                 </button>

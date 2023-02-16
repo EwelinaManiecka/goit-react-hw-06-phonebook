@@ -1,15 +1,21 @@
 import React from 'react';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import useLocalStorage from 'hooks/useLocalStorage';
 import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
 import Filter from './Filter/Filter';
 import css from './App.module.css';
+import { setStatusFilter } from '../redux/filterSlice';
+import { addContact } from 'redux/contactsSlice';
 
-function App() {
-  const [contacts, setContacts] = useLocalStorage('contacts');
-  const [filter, setFilter] = useState('');
+export default function App() {
+  const contacts = useSelector(state => state.contacts.contacts);
+  const filter = useSelector(state => state.filters.filter);
+  // const [contacts, setContacts] = useLocalStorage('contacts');
+  // const [filter, setFilter] = useState('');
+  const dispatch = useDispatch();
 
   const addContacts = ({ id, name, number }) => {
     if (
@@ -24,19 +30,19 @@ function App() {
       name,
       number,
     };
-    setContacts(prevState => [contact, ...prevState]);
+    dispatch(addContact(contacts));
+  };
+
+  const filterChange = event => {
+    dispatch(setStatusFilter(event.currentTarget.value));
   };
 
   const filterContact = contacts.filter(contact => {
     return contact.name.toLowerCase().includes(filter.toLowerCase());
   });
 
-  const filterChange = event => {
-    setFilter(event.currentTarget.value);
-  };
-
   const deleteContact = contactId => {
-    setContacts(contacts.filter(contact => contact.id !== contactId));
+    dispatch(contacts.filter(contact => contact.id !== contactId));
   };
 
   return (
@@ -49,5 +55,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
