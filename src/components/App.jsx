@@ -1,8 +1,8 @@
 import React from 'react';
-import { useState } from 'react';
+// import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import useLocalStorage from 'hooks/useLocalStorage';
+// import useLocalStorage from 'hooks/useLocalStorage';
 import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
 import Filter from './Filter/Filter';
@@ -25,11 +25,11 @@ export default function App() {
     ) {
       return alert(`${name} is already in contacts`);
     }
-    const contact = {
-      id,
-      name,
-      number,
-    };
+    // const contact = {
+    //   id,
+    //   name,
+    //   number,
+    // };
     dispatch(addContact(contacts));
   };
 
