@@ -1,21 +1,23 @@
-import React from 'react';
-// import { useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-// import useLocalStorage from 'hooks/useLocalStorage';
 import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
 import Filter from './Filter/Filter';
 import css from './App.module.css';
 import { setStatusFilter } from '../redux/filterSlice';
 import { addContact } from 'redux/contactsSlice';
+import { getContacts, getStatusFilter } from 'redux/selectors';
 
 export default function App() {
-  const contacts = useSelector(state => state.contacts.contacts);
-  const filter = useSelector(state => state.filters.filter);
-  // const [contacts, setContacts] = useLocalStorage('contacts');
-  // const [filter, setFilter] = useState('');
+  const contacts = useSelector(getContacts);
+  const filter = useSelector(getStatusFilter);
+
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    localStorage.setItem('Contacts', JSON.stringify(contacts));
+  }, [contacts]);
 
   const addContacts = ({ id, name, number }) => {
     if (
@@ -25,12 +27,12 @@ export default function App() {
     ) {
       return alert(`${name} is already in contacts`);
     }
-    // const contact = {
-    //   id,
-    //   name,
-    //   number,
-    // };
-    dispatch(addContact(contacts));
+    const contact = {
+      id,
+      name,
+      number,
+    };
+    dispatch(addContact(contact));
   };
 
   const filterChange = event => {
@@ -41,17 +43,13 @@ export default function App() {
     return contact.name.toLowerCase().includes(filter.toLowerCase());
   });
 
-  const deleteContact = contactId => {
-    dispatch(contacts.filter(contact => contact.id !== contactId));
-  };
-
   return (
     <div className={css.container}>
       <h1>Phonebook</h1>
       <ContactForm addContacts={addContacts} />
       <h2>Contacts</h2>
       <Filter filter={filterChange} />
-      <ContactList filter={filterContact} onDeleteContact={deleteContact} />
+      <ContactList filter={filterContact} />
     </div>
   );
 }

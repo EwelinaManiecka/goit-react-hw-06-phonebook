@@ -4,10 +4,9 @@ import { deleteContact } from 'redux/contactsSlice';
 import PropTypes from 'prop-types';
 import { Notification } from 'components/Notification/Notification';
 import css from './ContactList.module.css';
-import { filtersReducer } from 'redux/filterSlice';
 import { getContacts, getStatusFilter } from 'redux/selectors';
 
-const ContactList = ({ filter, onDeleteContact }) => {
+const ContactList = ({ filter }) => {
   const contacts = useSelector(getContacts);
   const statusFilter = useSelector(getStatusFilter);
   const dispatch = useDispatch();
@@ -33,7 +32,7 @@ const ContactList = ({ filter, onDeleteContact }) => {
                 <button
                   className={css.btnDelete}
                   type="button"
-                  onClick={() => onDeleteContact(contact.id)}
+                  onClick={() => deleteItemContact(contact.id)}
                 >
                   Delete
                 </button>
